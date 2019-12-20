@@ -1,0 +1,211 @@
+{
+  "code": "00000000",
+  "data": {
+    "list": [
+      {
+      "type": "热销菜",
+      "foods":[
+        {
+          "imgurl": "./static/images/hot/jydft.jpeg",
+          "name": "鲫鱼豆腐汤",
+          "type": "热销菜",
+          "price":24
+        },
+        {
+          "imgurl": "./static/images/hot/ljz.jpeg",
+          "name": "辣子鸡",
+          "type": "热销菜",
+          "price": 26
+        },
+        {
+          "imgurl": "./static/images/hot/mdcr.jpeg",
+          "name": "毛豆炒肉",
+          "type": "热销菜",
+          "price": 22
+        },
+        {
+          "imgurl": "./static/images/hot/qzrm.jpeg",
+          "name": "茄子肉末",
+          "type": "热销菜",
+          "price": 22
+        },
+        {
+          "imgurl": "./static/images/hot/tsky.jpeg",
+          "name": "特色烤鸭",
+          "type": "热销菜",
+          "price": 24
+        },
+        {
+          "imgurl": "./static/images/hot/yjhc.jpeg",
+          "name": "有机花菜",
+          "type": "热销菜",
+          "price": 20
+        }
+      ]
+    }
+      ,
+      {
+        "type":"套餐",
+        "foods":[{
+            "imgurl": "./static/images/taocan/pgsn.jpeg",
+            "name": "排骨烧年",
+            "type": "套餐",
+            "price": 26
+          },
+          {
+            "imgurl": "./static/images/taocan/ljz.jpeg",
+            "name": "辣子鸡",
+            "type": "套餐",
+            "price": 28
+          },
+          {
+            "imgurl": "./static/images/taocan/mgsr.jpeg",
+            "name": "梅干菜烧肉",
+            "type": "套餐",
+            "price": 26
+          },
+          {
+            "imgurl": "./static/images/taocan/lwdg.jpeg",
+            "name": "卤味大骨",
+            "type": "套餐",
+            "price": 26
+          },
+          {
+            "imgurl": "./static/images/taocan/djytc.jpeg",
+            "name": "剁椒鱼",
+            "type": "套餐",
+            "price": 24
+          }]
+      },
+      {
+      "type":"木桶饭",
+      "foods":[
+        {
+          "imgurl": "./static/images/mutongfan/mdcr.jpeg",
+          "name": "毛豆炒肉",
+          "type": "木桶饭",
+          "price": 22
+        },
+        {
+          "imgurl": "./static/images/mutongfan/yjhc.jpeg",
+          "name": "有机花菜",
+          "type": "木桶饭",
+          "price": 20
+        },
+        {
+          "imgurl": "./static/images/mutongfan/ywx.jpeg",
+          "name": "一碗香",
+          "type": "木桶饭",
+          "price": 24
+        },
+        {
+          "imgurl": "./static/images/mutongfan/qzrm.jpeg",
+          "name": "茄子肉末",
+          "type": "木桶饭",
+          "price": 20
+        },
+        {
+          "imgurl": "./static/images/mutongfan/mxr.jpeg",
+          "name": "木须肉",
+          "type": "木桶饭",
+          "price": 22
+        }
+      ]
+      },
+      {
+        "type":"手工面",
+        "foods":[{
+            "imgurl": "./static/images/shougongmian/lxzjm.jpeg",
+            "name": "卤香炸酱面",
+            "type": "手工面",
+            "price": 20
+          },
+          {
+            "imgurl": "./static/images/shougongmian/njsgm.jpeg",
+            "name": "农家笋干面",
+            "type": "手工面",
+            "price": 20
+          },
+          {
+            "imgurl": "./static/images/shougongmian/qcjdm.jpeg",
+            "name": "青菜鸡蛋面",
+            "type": "手工面",
+            "price": 16
+          },
+          {
+            "imgurl": "./static/images/shougongmian/qczrsj.jpeg",
+            "name": "芹菜猪肉水饺",
+            "type": "手工面",
+            "price": 18
+          },
+          {
+            "imgurl": "./static/images/shougongmian/xpzjm.jpeg",
+            "name": "小排炸酱面",
+            "type": "手工面",
+            "price": 22
+          }]
+      },
+      {
+        "type":"特色鱼",
+        "foods":[{
+            "imgurl": "./static/images/teseyu/hlfqfn.jpeg",
+            "name": "活力番茄肥牛",
+            "type": "特色鱼",
+            "price": 26
+          },
+          {
+            "imgurl": "./static/images/teseyu/mlfn.jpeg",
+            "name": "麻辣肥牛",
+            "type": "特色鱼",
+            "price": 24
+          },
+          {
+            "imgurl": "./static/images/teseyu/sljtfn.jpeg",
+            "name": "酸辣金汤肥牛",
+            "type": "特色鱼",
+            "price": 26
+          },
+          {
+            "imgurl": "./static/images/teseyu/jydft.jpeg",
+            "name": "酸辣金汤肥牛",
+            "type": "特色鱼",
+            "price": 24
+          },
+          {
+            "imgurl": "./static/images/teseyu/xmpg.jpeg",
+            "name": "玉米排骨",
+            "type": "特色鱼",
+            "price": 22
+          }]
+      },
+      {
+        "type":"烧腊",
+        "foods":[
+          {
+            "imgurl": "./static/images/shaola/lsjt.jpeg",
+            "name": "卤香鸡腿",
+            "type": "烧腊",
+            "price": 20
+          },
+          {
+            "imgurl": "./static/images/shaola/tsky.jpeg",
+            "name": "特色烤鸭",
+            "type": "烧腊",
+            "price": 24
+          },
+          {
+            "imgurl": "./static/images/shaola/sxjr.jpeg",
+            "name": "蒜香烤鸡",
+            "type": "烧腊",
+            "price": 26
+          },
+          {
+            "imgurl": "./static/images/shaola/sypg.jpeg",
+            "name": "烧鸭拼鼓油鸡",
+            "type": "烧腊",
+            "price": 24
+          }]
+      }
+    ]
+  }
+}
