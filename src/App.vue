@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
@@ -11,5 +13,5 @@ export default {
 </script>
 
 <style lang='scss'>
-@import "@/assets/styles/common.scss"
+@import "@/assets/styles/common.scss";
 </style>

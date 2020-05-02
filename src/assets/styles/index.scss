@@ -1,6 +1,7 @@
 #contain {
   height: 100%;
   overflow: hidden;
+  z-index: 2
 }
 .main {
    width: 100%;
@@ -38,20 +39,43 @@
   height: 2.8rem
 }
 .food-contain strong {
+  position: relative;
   float: right;
   margin-top:1rem;
   font-size: .6rem;
+  .num {
+    display: inline-block;
+    position: absolute;
+    color: darkred;
+    width: .1rem;
+    height: .1rem;
+    top: -.3rem;
+    right: 1.4rem
+  }
 }
 .footer{
   position: absolute;
   bottom:0rem;
   background-color: #99acbe;
   width: 100%;
-  height: 2rem;
+  height: 2.5rem;
+  .chooseNum {
+    position: absolute;
+    display: inline-block;
+    bottom: 1.4rem;
+    right: 5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: rgb(238, 64, 64);
+    color:white;
+    text-align: center;
+    font-size: 18px;
+  }
 }
 .head{
   width:100%;
-  height: 2.1rem
+  height: 2.5rem
 }
 .search{
   display: inline-block;

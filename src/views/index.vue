@@ -67,7 +67,16 @@
                         <template>
                           <img :src="food.imgurl" />
                         </template>
-                        <strong>{{food.name}}{{' '+food.price}}元<i class='el-icon-circle-plus-outline'></i></strong>
+                        <strong>
+                          <i class='el-icon-remove-outline'
+                             @click="handleDel(food)"></i>
+                          {{food.name}}{{' '+food.price}}元
+                          <div class="num">
+                            <span v-if='food.num !== 0'>{{food.num}}</span>
+                          </div>
+                          <i class='el-icon-circle-plus-outline'
+                             @click="handleAdd(food)"></i>
+                        </strong>
                       </div>
                     </li>
                   </ul>
@@ -79,26 +88,28 @@
 
         <el-tab-pane label="商家">
           <div class="home">
-              <img src='http://img1.qunarzz.com/travel/d2/1701/91/bd6a291cc3f38bb5.jpg_r_720x480x95_3815576f.jpg' />
-              <img src='http://hbimg.b0.upaiyun.com/2d380a8476dab9bc529883159c7061073c0d1d091d8c3-ePu5Zc_fw658' />
-              <img src='http://b-ssl.duitang.com/uploads/blog/201510/20/20151020193932_uBAmZ.jpeg' />
-              <img src='http://img1.juimg.com/161119/330761-16111914125165.jpg' />
+            <img src='http://img1.qunarzz.com/travel/d2/1701/91/bd6a291cc3f38bb5.jpg_r_720x480x95_3815576f.jpg' />
+            <img src='http://hbimg.b0.upaiyun.com/2d380a8476dab9bc529883159c7061073c0d1d091d8c3-ePu5Zc_fw658' />
+            <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3781882916,549053132&fm=26&gp=0.jpg' />
+            <img src='http://img1.juimg.com/161119/330761-16111914125165.jpg' />
           </div>
         </el-tab-pane>
 
       </el-tabs>
 
       <div class="footer">
+        <span class="chooseNum">{{ chooseNum }}</span>
         <el-button type="primary"
-                   class="bnt">选好了</el-button>
+                   class="bnt"
+                   @click="handlePay()">选好了</el-button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -108,11 +119,21 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.wrapper, {})
+      this.scroll = new BScroll(this.$refs.wrapper, { click: true, taps: true })
     })
     this.handleList()
   },
+  computed: {
+    ...mapGetters(['food', 'prices', 'chooseNum'])
+  },
   methods: {
+    ...mapMutations({
+      listinit: 'listinit',
+      addfood: 'add_food',
+      addprice: 'add_price',
+      delfood: 'del_food',
+      delprice: 'del_price'
+    }),
     back () {
       this.$router.push('/')
     },
@@ -121,6 +142,7 @@ export default {
         .then((res) => {
           if (res.code === '00000000') {
             this.list = res.data.list
+            this.listinit(res.data.list)
           }
         })
     },
@@ -128,6 +150,46 @@ export default {
       let height = this.$refs['pitem'][key - 1].offsetTop
       let X = 0
       this.scroll.scrollTo(X, -height, 1500, 'easing')
+    },
+    handleAdd (param) { // 添加至购物车
+      this.addprice(param.price)
+      this.addfood(param.name + ',' + param.price + '元')
+      this.addAction()
+      this.addnum(param.name)
+    },
+    handleDel (param) { // 从购物车删除
+      this.delprice(param.price)
+      this.delfood(param.name)
+      this.delnum(param.name)
+    },
+    addAction () { // 添加至购物车的动画
+    },
+    addnum (name) { // 选中菜品时增加数目
+      for (let i = 0; i < this.list.length; i++) {
+        for (let j = 0; j < this.list[i].foods.length; j++) {
+          if (this.list[i].foods[j].name === name) {
+            this.list[i].foods[j].num += 1
+          }
+        }
+      }
+    },
+    delnum (name) { // 减少数目
+      for (let i = 0; i < this.list.length; i++) {
+        for (let j = 0; j < this.list[i].foods.length; j++) {
+          if (this.list[i].foods[j].name === name) {
+            if (this.list[i].foods[j].num > 0) {
+              this.list[i].foods[j].num -= 1
+            }
+          }
+        }
+      }
+    },
+    handlePay () {
+      if (this.chooseNum === 0) {
+        this.$message.error('请先添加喜欢的菜到购物车吧')
+      } else {
+        this.$router.push({ path: '/pay' })
+      }
     }
   }
 }
@@ -156,6 +218,10 @@ export default {
   margin-top: 0rem;
   font-size: 1.5rem;
   color: black;
+}
+.el-icon-remove-outline {
+  color: rgba(17, 13, 228, 0.89);
+  font-size: 1.2rem;
 }
 .el-icon-circle-plus-outline {
   color: rgba(17, 13, 228, 0.89);

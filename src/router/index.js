@@ -18,6 +18,11 @@ export default new Router({
       path: '/index',
       name: 'index',
       component: () => import('@/views/index')
+    },
+    {
+      path: '/pay',
+      name: 'pay',
+      component: () => import('@/views/pay')
     }
   ]
 })
