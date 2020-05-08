@@ -22,6 +22,6 @@
     "koa-json": "^2.0.2",
     "koa-router": "7.0.0",
     "mysql": "2.11.1",
-    "sequelize": "^3.24.1"
+    "sequelize": "^5.15.1"
   }
 }
