@@ -18,9 +18,10 @@
   "license": "Apache-2.0",
   "dependencies": {
     "koa": "2.0.0",
-    "koa-router": "7.0.0",
     "koa-bodyparser": "3.2.0",
-    "sequelize": "3.24.1",
-    "mysql": "2.11.1"
+    "koa-json": "^2.0.2",
+    "koa-router": "7.0.0",
+    "mysql": "2.11.1",
+    "sequelize": "^3.24.1"
   }
 }

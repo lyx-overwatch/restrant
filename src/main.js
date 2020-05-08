@@ -6,10 +6,10 @@ import router from './router'
 import store from './store/store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import service from '@/service'
+import service from '@/service/index'
 
 Vue.config.productionTip = false
-Vue.prototype.service = service
+Vue.prototype.$service = service
 Vue.use(ElementUI)
 /* eslint-disable no-new */
 new Vue({

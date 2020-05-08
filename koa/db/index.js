@@ -1,20 +1,12 @@
-let mysql = require('mysql')
-let connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'restrant',
-  port: 3306
-})
+const Sequelize = require('sequelize') // 引入sequelize
 
-connection.query('SELECT * FROM test', function (err, rows) {
-  if (err) {
-    // error
-  } else {
-    for (let row in rows) {
-      console.log(row)
-    }
+// 使用url连接的形式进行连接
+const MyDataBase = new Sequelize('mysql://root:root@localhost/restrant', {
+  define: {
+    timestamps: false // 取消Sequelzie自动给数据表加入时间戳（createdAt以及updatedAt）
   }
 })
 
-module.exports = connection
+module.exports = {
+  MyDataBase
+}

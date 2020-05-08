@@ -1,12 +1,21 @@
-const Koa = require('koa') // 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示
-// const route = require('koa-route')// 配置路由
-const koaBody = require('koa-bodyparser')// 解析post请求会用到koa-body
-let app = new Koa()
+const Koa = require('Koa')
+const router = require('./routers/router.js')
+const json = require('koa-json')
 
-app.use(koaBody())
+const app = new Koa()
+app.use(require('koa-bodyparser')())
+app.use(json())
 
-// 连接数据库
-let connection = require('./db/index')
-connection.connect()
+app.on('error', function (err, ctx) {
+  console.log('server error', err)
+})
 
-app.listen(3000)
+// router.use('/auth', auth.routes()) // 挂载到koa-router上，同时会让所有的auth的请求路径前面加上'/auth'的请求路径。
+
+app.use(router.routes()) // 将路由规则挂载到Koa上。
+
+app.listen(8484, () => {
+  console.log('Koa is listening in 8484')
+})
+
+module.exports = app
