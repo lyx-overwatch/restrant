@@ -100,12 +100,22 @@
           </div>
         </el-tab-pane>
 
-        <el-tab-pane label="商家">
+        <el-tab-pane label="历史订单">
           <div class="home">
-            <img src='http://img1.qunarzz.com/travel/d2/1701/91/bd6a291cc3f38bb5.jpg_r_720x480x95_3815576f.jpg' />
-            <img src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1204370716,2143384209&fm=26&gp=0.jpg' />
-            <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3781882916,549053132&fm=26&gp=0.jpg' />
-            <img src='http://img1.juimg.com/161119/330761-16111914125165.jpg' />
+            <template v-if="this.history.length">
+            <ul class="ul-main"
+              v-infinite-scroll
+              style="overflow:auto">
+                <li class="li-item"
+                    v-for="(item,index) of this.history"
+                   :key='index'>
+                  用户:{{item.username}}
+                  总价:{{item.prices}}元
+                  套餐:{{item.foods}}
+                </li>
+            </ul>
+            </template>
+            <p v-else style='width:100%;text-align:center;margin-top:1rem'>无历史订单</p>
           </div>
         </el-tab-pane>
 
@@ -130,7 +140,8 @@ export default {
       list: [],
       input: '',
       searchFoodResult: [],
-      filterFoodResult: []
+      filterFoodResult: [],
+      history: []
     }
   },
   mounted () {
@@ -138,10 +149,14 @@ export default {
       this.scroll = new BScroll(this.$refs.wrapper, { click: true, taps: true })
     })
     this.handleList()
+    this.searchOrder()
   },
   watch: {
     input () {
       this.foodFliter()
+    },
+    history () {
+      this.searchOrder()
     }
   },
   computed: {
@@ -269,6 +284,28 @@ export default {
       } else {
         this.$router.push({ path: '/pay' })
       }
+    },
+    searchOrder () {
+      this.$service.searchOrder({
+        username: sessionStorage.getItem('account')
+      }).then((res) => {
+        if (res.success) {
+          this.history = res.data
+          for (let item of this.history) {
+            let paidFoods = item.foods.split(',')
+            let food = ''
+            // 利用正则表达式过滤返回json字符串中含数字的字符
+            let reg = /[0-9]+/
+            for (let str of paidFoods) {
+              if (!reg.test(str)) {
+                str += '*1'
+                food += str + ' '
+              }
+            }
+            item.foods = food
+          }
+        }
+      })
     }
   }
 }

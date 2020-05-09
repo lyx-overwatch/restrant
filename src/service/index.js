@@ -18,5 +18,8 @@ export default {
   },
   addOrder (params) { // 提交订单
     return Server.post('/api/addOrder', params)
+  },
+  searchOrder (params) { // 历史订单
+    return Server.post('/api/searchOrder', params)
   }
 }

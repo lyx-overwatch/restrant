@@ -108,6 +108,20 @@
 .home {
   width: 100%;
   height: 100%;
+  font-size: .8rem;
+  .ul-main {
+    width:100%;
+    height:10rem;
+    .li-item {
+      width:100%;
+      height:1.5rem;
+      overflow: hidden; 
+      white-space:nowrap; // 强制不换行   
+ 	    text-overflow: ellipsis; // 超出省略号
+      border-top: 1px solid white;
+      background-color: rgb(211, 211, 211);
+    }
+  }
 }
 .home img {
   width: 50%;

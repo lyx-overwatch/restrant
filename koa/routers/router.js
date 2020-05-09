@@ -14,6 +14,7 @@ router.get('/user/login/:id', auth.login)
   .post('/query/foods', food.getFood) // 获取所有食品信息
   .post('/query/search', searchFood.search) // 搜索特定食品信息
   .post('/addOrder', order.addOrder) // 提交订单
+  .post('/searchOrder', order.searchOrder) // 提交订单
 
 router.use('/api', router.routes()) // 每个路由前添加一个api
 module.exports = router

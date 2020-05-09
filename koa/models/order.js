@@ -12,6 +12,16 @@ const add = async (username, foods, prices) => {
   })
 }
 
+const search = async (username) => {
+  let res = await Order.findAll({
+    where: {
+      username
+    }
+  })
+  return res
+}
+
 module.exports = {
-  add
+  add,
+  search
 }
