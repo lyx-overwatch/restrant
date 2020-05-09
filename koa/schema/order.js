@@ -1,26 +1,26 @@
 /* jshint indent: 2 */
 
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('user', {
+  return sequelize.define('order', {
     id: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     username: {
-      type: DataTypes.CHAR(50),
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    password: {
-      type: DataTypes.CHAR(50),
+    foods: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    phone: {
-      type: DataTypes.BIGINT,
+    prices: {
+      type: DataTypes.INTEGER(12),
       allowNull: true
     }
   }, {
-    tableName: 'user'
+    tableName: 'order'
   })
 }

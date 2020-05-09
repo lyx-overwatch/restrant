@@ -23,6 +23,11 @@ export default new Router({
       path: '/pay',
       name: 'pay',
       component: () => import('@/views/pay')
+    },
+    {
+      path: '/foodDetail',
+      name: 'foodDetail',
+      component: () => import('@/views/foodDetail')
     }
   ]
 })

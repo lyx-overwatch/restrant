@@ -9,9 +9,23 @@
         <el-input placeholder="请输入菜名"
                   v-model="input">
           <el-button slot="append"
-                     icon="el-icon-search"></el-button>
+                     icon="el-icon-search"
+                     @click="foodSearch"></el-button>
         </el-input>
       </div>
+    </div>
+
+    <div class="search-res" v-show='this.filterFoodResult.length > 0'>
+      <ul class="ul-main"
+      v-infinite-scroll
+      style="overflow:auto">
+        <li class="li-item"
+            v-for="(item,index) of this.filterFoodResult"
+            :key='index'
+            @click="searchFoodDetail(item)"
+            >{{item}}
+            </li>
+      </ul>
     </div>
 
     <div class='img-contain'>
@@ -65,7 +79,7 @@
                         :key='i'>
                       <div class="food-contain">
                         <template>
-                          <img :src="food.imgurl" />
+                          <img :src="food.imgurl" @click="viewDetail(food)" />
                         </template>
                         <strong>
                           <i class='el-icon-remove-outline'
@@ -89,7 +103,7 @@
         <el-tab-pane label="商家">
           <div class="home">
             <img src='http://img1.qunarzz.com/travel/d2/1701/91/bd6a291cc3f38bb5.jpg_r_720x480x95_3815576f.jpg' />
-            <img src='http://hbimg.b0.upaiyun.com/2d380a8476dab9bc529883159c7061073c0d1d091d8c3-ePu5Zc_fw658' />
+            <img src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1204370716,2143384209&fm=26&gp=0.jpg' />
             <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3781882916,549053132&fm=26&gp=0.jpg' />
             <img src='http://img1.juimg.com/161119/330761-16111914125165.jpg' />
           </div>
@@ -114,7 +128,9 @@ export default {
   data () {
     return {
       list: [],
-      input: ''
+      input: '',
+      searchFoodResult: [],
+      filterFoodResult: []
     }
   },
   mounted () {
@@ -122,6 +138,11 @@ export default {
       this.scroll = new BScroll(this.$refs.wrapper, { click: true, taps: true })
     })
     this.handleList()
+  },
+  watch: {
+    input () {
+      this.foodFliter()
+    }
   },
   computed: {
     ...mapGetters(['food', 'prices', 'chooseNum'])
@@ -132,19 +153,75 @@ export default {
       addfood: 'add_food',
       addprice: 'add_price',
       delfood: 'del_food',
-      delprice: 'del_price'
+      delprice: 'del_price',
+      setFoodDetailUrl: 'setUrl',
+      setFoodDetailName: 'setName',
+      setFoodDetailPrices: 'setPrices'
     }),
     back () {
       this.$router.push('/')
     },
+    foodSearch () { // 菜品搜索,保存所有菜品
+      this.$service.queryFood().then((res) => {
+        if (res.code === '00000000') {
+          let arr = res.data.list
+          // 将所有的菜品保存
+          for (let items of arr) {
+            for (let item of items.foods) {
+              if (this.searchFoodResult.indexOf(item.name) < 0) {
+                this.searchFoodResult.push(item.name)
+              }
+            }
+          }
+          this.foodFliter()
+          if (this.filterFoodResult.length === 0) {
+            this.$message.info('找不到与此相关的菜哟')
+          }
+        }
+      })
+    },
+    foodFliter () {
+      // 筛选符合条件的菜品
+      let str = this.input
+      if (str === '') {
+        this.filterFoodResult = []
+        return
+      }
+      let result = []
+      for (let item of this.searchFoodResult) {
+        if (item.includes(str)) {
+          result.push(item)
+        }
+      }
+      this.filterFoodResult = result
+    },
+    searchFoodDetail (item) {
+      this.$service.searchFoodDetail({
+        foodName: item
+      }).then((res) => {
+        if (res.success) {
+          let data = res.data[0]
+          this.setFoodDetailUrl(data.imgurl)
+          this.setFoodDetailName(data.name)
+          this.setFoodDetailPrices(data.price)
+          this.$router.push('/foodDetail')
+        }
+      })
+    },
     handleList () {
-      this.service.queryList()
+      this.$service.queryFood()
         .then((res) => {
           if (res.code === '00000000') {
             this.list = res.data.list
             this.listinit(res.data.list)
           }
         })
+    },
+    viewDetail (food) { // 查看食品详情
+      this.setFoodDetailUrl(food.imgurl)
+      this.setFoodDetailName(food.name)
+      this.setFoodDetailPrices(food.price)
+      this.$router.push('/foodDetail')
     },
     checkScroll (key) {
       let height = this.$refs['pitem'][key - 1].offsetTop
@@ -172,6 +249,7 @@ export default {
           }
         }
       }
+      this.listinit(this.list)
     },
     delnum (name) { // 减少数目
       for (let i = 0; i < this.list.length; i++) {
@@ -183,10 +261,11 @@ export default {
           }
         }
       }
+      this.listinit(this.list)
     },
     handlePay () {
       if (this.chooseNum === 0) {
-        this.$message.error('请先添加喜欢的菜到购物车吧')
+        this.$message.info('请先添加喜欢的菜到购物车吧')
       } else {
         this.$router.push({ path: '/pay' })
       }
@@ -195,7 +274,7 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 .el-input,
 .el-input-group,
 .el-input-group--append {
@@ -204,7 +283,7 @@ export default {
 .el-tabs .el-tabs--top .el-tabs--border-card {
   height: 100%;
 }
-.el-tabs--border-card > .el-tabs__content {
+.main >>> .el-tabs__content {
   padding: 0;
 }
 .el-tab-pane {

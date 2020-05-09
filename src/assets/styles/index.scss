@@ -58,7 +58,7 @@
   bottom:0rem;
   background-color: #99acbe;
   width: 100%;
-  height: 2.5rem;
+  height: 2.1rem;
   .chooseNum {
     position: absolute;
     display: inline-block;
@@ -75,7 +75,23 @@
 }
 .head{
   width:100%;
-  height: 2.5rem
+  height: 2rem
+}
+.search-res {
+  position: absolute;
+  top:2rem;
+  font-size: .8rem;
+  left:1.9rem;
+  .ul-main {
+    width:15rem;
+    height:6rem;
+    .li-item {
+      width:100%;
+      height:1.5rem;
+      border-top: 1px solid white;
+      background-color: rgb(211, 211, 211);
+    }
+  }
 }
 .search{
   display: inline-block;

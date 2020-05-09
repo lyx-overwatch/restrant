@@ -24,7 +24,8 @@
     </div>
     <div class="footer">
       <el-button type="primary"
-                 class="bnt">提交订单</el-button>
+                 class="bnt"
+                 @click="addOrder">提交订单</el-button>
     </div>
   </div>
 </template>
@@ -65,6 +66,20 @@ export default {
           }
         }
       }
+    },
+    addOrder () { // 添加订单
+      this.$service.addOrder({
+        username: sessionStorage.getItem('account'),
+        foods: this.food.toString(),
+        prices: this.prices
+      }).then((res) => {
+        if (res.success) {
+          this.$message.success('提交订单成功')
+          this.$router.push('/index')
+        } else {
+          this.$message.error('提交订单失败')
+        }
+      })
     }
   }
 }
