@@ -17,7 +17,21 @@ const searchFood = async (name) => { // 搜索特定食品信息
   return res
 }
 
+const update = async (params) => {
+  let res = await Foods.findOne({
+    where: {
+      id: params.id
+    }
+  })
+  res.type = params.type
+  res.name = params.name
+  res.price = params.price
+  console.log(res)
+  await res.save()
+  return true
+}
 module.exports = {
   getFood,
-  searchFood
+  searchFood,
+  update
 }

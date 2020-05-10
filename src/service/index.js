@@ -10,6 +10,9 @@ export default {
   login (params) { // 用户登录
     return Server.post('/api/user/login', params)
   },
+  managerLogin (params) { // 管理员登录
+    return Server.post('/api/manager/login', params)
+  },
   queryFood () { // 获取所有菜品信息
     return Server.post('/api/query/foods')
   },
@@ -21,5 +24,14 @@ export default {
   },
   searchOrder (params) { // 历史订单
     return Server.post('/api/searchOrder', params)
+  },
+  getUserInfo () { // 获取所有用户信息
+    return Server.post('/api/user/userInfo')
+  },
+  updateUserInfo (params) { // 更新用户信息
+    return Server.post('/api/user/update', params)
+  },
+  updateFoodInfo (params) { // 更新菜单信息
+    return Server.post('/api/food/update', params)
   }
 }

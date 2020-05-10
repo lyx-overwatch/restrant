@@ -1,4 +1,4 @@
-const login = require('../models/login.js')
+const login = require('../models/managerLogin.js')
 
 const check = async (cxt, next) => {
   const account = cxt.request.body.account

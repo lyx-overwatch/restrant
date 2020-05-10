@@ -13,6 +13,7 @@
   "dependencies": {
     "better-scroll": "^1.15.2",
     "compression-webpack-plugin": "^1.1.11",
+    "default-passive-events": "^1.0.10",
     "echarts": "^4.4.0",
     "element-ui": "^2.12.0",
     "node-sass": "^4.9.0",

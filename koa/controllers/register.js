@@ -7,16 +7,15 @@ const add = async (cxt, next) => {
   */
   const username = cxt.request.body.username
   const password = cxt.request.body.password
-  const phone = cxt.request.body.phone
   console.log(cxt.request.body)
-  if (username == null || password == null || phone == null) {
+  if (username == null || password == null) {
     let message = {
       success: false,
       message: '参数不完整'
     }
     cxt.body = message
   } else {
-    await register.addUser(username, password, phone)
+    await register.addUser(username, password)
     let success = {
       success: true,
       message: ''

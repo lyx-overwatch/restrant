@@ -1,4 +1,6 @@
 const getters = {
+  userLogin: state => state.loginIn.userToken,
+  managerLogin: state => state.loginIn.managerToken,
   list: state => state.a.list,
   food: state => state.a.food,
   prices: state => state.a.prices,

@@ -27,7 +27,8 @@ const getFood = async (cxt, next) => {
           name: food.name,
           type: food.type,
           num: food.num,
-          price: food.price
+          price: food.price,
+          id: food.id
         }
         listItem.foods.push(obj)
       }
@@ -37,6 +38,18 @@ const getFood = async (cxt, next) => {
   cxt.body = res
 }
 
+const update = async (cxt, next) => { // 更新当前菜品信息
+  let params = cxt.request.body.params
+  let res = await allFoods.update(params)
+  let resp = {
+    success: true
+  }
+  if (res) {
+    cxt.body = resp
+  }
+}
+
 module.exports = {
-  getFood
+  getFood,
+  update
 }

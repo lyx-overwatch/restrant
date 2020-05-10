@@ -1,13 +1,55 @@
-// controllers/user.js
-
 const user = require('../models/user.js')
 
-const login = async (cxt, next) => {
-  const id = cxt.params.id // 获取url里传过来的参数里的id
-  const result = await user.getUserById(id) //
-  cxt.body = result // 将请求的结果放到response的body里返回
+const check = async (cxt, next) => { // 登录检查账号
+  const account = cxt.request.body.account
+  const password = cxt.request.body.password
+  console.log(cxt.request.body)
+  if (account == null || password == null) {
+    let message = {
+      success: false,
+      message: ''
+    }
+    cxt.body = message
+  } else {
+    let record = await user.checkAcconut(account, password)
+    if (record) {
+      let success = {
+        success: true,
+        message: ''
+      }
+      cxt.body = success
+    } else {
+      let fail = {
+        success: false,
+        message: '数据库无记录'
+      }
+      cxt.body = fail
+    }
+  }
+}
+
+const getInfo = async (cxt, next) => { // 查询所有用户信息
+  let res = await user.getInfo()
+  let resp = {
+    success: true,
+    data: res
+  }
+  cxt.body = resp
+}
+
+const update = async (cxt, next) => { // 更新用户信息
+  let arr = cxt.request.body.tableData
+  let res = await user.update(arr)
+  let resp = {
+    success: true
+  }
+  if (res) {
+    cxt.body = resp
+  }
 }
 
 module.exports = {
-  login
+  check,
+  getInfo,
+  update
 }
