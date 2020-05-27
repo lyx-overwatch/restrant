@@ -136,6 +136,7 @@
 import BScroll from 'better-scroll'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+  name: 'foodIndex',
   data () {
     return {
       list: [],
@@ -168,10 +169,13 @@ export default {
       delprice: 'del_price',
       setFoodDetailUrl: 'setUrl',
       setFoodDetailName: 'setName',
-      setFoodDetailPrices: 'setPrices'
+      setFoodDetailPrices: 'setPrices',
+      setNum: 'setNum'
     }),
     back () {
       this.$router.push('/')
+      this.handleList()
+      this.setNum(0)
     },
     foodSearch () { // 菜品搜索,保存所有菜品
       this.$service.queryFood().then((res) => {

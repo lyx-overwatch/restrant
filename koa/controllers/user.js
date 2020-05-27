@@ -38,8 +38,9 @@ const getInfo = async (cxt, next) => { // 查询所有用户信息
 }
 
 const update = async (cxt, next) => { // 更新用户信息
-  let arr = cxt.request.body.tableData
-  let res = await user.update(arr)
+  let delArr = cxt.request.body.delData
+  let addArr = cxt.request.body.addData
+  let res = await user.update(delArr, addArr)
   let resp = {
     success: true
   }

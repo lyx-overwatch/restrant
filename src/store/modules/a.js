@@ -35,6 +35,9 @@ const a = {
       } else {
         state.prices = 0
       }
+    },
+    setNum: (state, num) => {
+      state.chooseNum = num
     }
   }
 }

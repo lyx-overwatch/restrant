@@ -45,7 +45,10 @@ export default {
   name: 'user_m',
   data () {
     return {
-      tableData: []
+      tableData: [],
+      cloneArr: [],
+      delArr: [], // 管理员删除的用户
+      addArr: [] // 管理员添加的用户
     }
   },
   mounted () {
@@ -57,6 +60,7 @@ export default {
         .then((res) => {
           if (res.success) {
             this.tableData = [].concat(res.data)
+            this.cloneArr = [].concat(this.tableData)
           }
         })
     },
@@ -70,8 +74,20 @@ export default {
       arr.splice(index, 1)
     },
     submit () {
+      console.log(this.tableData, this.cloneArr)
+      for (let item of this.cloneArr) {
+        if (this.tableData.indexOf(item) === -1) {
+          this.delArr.push(item) // 保存被删除的用户
+        }
+      }
+      for (let item of this.tableData) {
+        if (this.cloneArr.indexOf(item) === -1) {
+          this.addArr.push(item) // 保存新添加的用户
+        }
+      }
       this.$service.updateUserInfo({
-        tableData: this.tableData
+        delData: this.delArr,
+        addData: this.addArr
       }).then((res) => {
         if (res.success) {
           this.$message.success('提交成功')

@@ -23,12 +23,20 @@ const getInfo = async () => {
   return res
 }
 
-const update = async (arr) => {
-  await User.destroy({
-    where: {}
-  })
-  for (let item of arr) {
-    await User.create(item)
+const update = async (delArr, addArr) => {
+  if (delArr.length) {
+    for (let item of delArr) {
+      await User.destroy({
+        where: {
+          username: item.username
+        }
+      })
+    }
+  }
+  if (addArr.length) {
+    for (let item of addArr) {
+      await User.create(item)
+    }
   }
   return true
 }
