@@ -15,10 +15,11 @@ router
   .post('/query/foods', food.getFood) // 获取所有食品信息
   .post('/query/search', searchFood.search) // 搜索特定食品信息
   .post('/addOrder', order.addOrder) // 提交订单
-  .post('/searchOrder', order.searchOrder) // 提交订单
+  .post('/searchOrder', order.searchOrder) // 搜索历史订单
   .post('/user/userInfo', user.getInfo) // 用户信息
   .post('/user/update', user.update) // 管理员更新用户信息
   .post('/food/update', food.update) // 管理员更新菜单信息
 
 router.use('/api', router.routes()) // 每个路由前添加一个api
+
 module.exports = router

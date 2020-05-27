@@ -10,7 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     username: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'user',
+        key: 'username'
+      }
     },
     foods: {
       type: DataTypes.STRING(255),

@@ -25,8 +25,7 @@ const getInfo = async () => {
 
 const update = async (arr) => {
   await User.destroy({
-    where: {},
-    truncate: true
+    where: {}
   })
   for (let item of arr) {
     await User.create(item)

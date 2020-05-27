@@ -34,6 +34,7 @@
 
     <div class="main">
       <el-tabs type="border-card"
+               @tab-click='searchOrder'
                :stretch=true>
         <el-tab-pane label="商品">
           <el-menu default-active="2"
@@ -149,14 +150,10 @@ export default {
       this.scroll = new BScroll(this.$refs.wrapper, { click: true, taps: true })
     })
     this.handleList()
-    this.searchOrder()
   },
   watch: {
     input () {
       this.foodFliter()
-    },
-    history () {
-      this.searchOrder()
     }
   },
   computed: {
@@ -285,27 +282,29 @@ export default {
         this.$router.push({ path: '/pay' })
       }
     },
-    searchOrder () {
-      this.$service.searchOrder({
-        username: sessionStorage.getItem('account')
-      }).then((res) => {
-        if (res.success) {
-          this.history = res.data
-          for (let item of this.history) {
-            let paidFoods = item.foods.split(',')
-            let food = ''
-            // 利用正则表达式过滤返回json字符串中含数字的字符
-            let reg = /[0-9]+/
-            for (let str of paidFoods) {
-              if (!reg.test(str)) {
-                str += '*1'
-                food += str + ' '
+    searchOrder (el) {
+      if (el.label === '历史订单') {
+        this.$service.searchOrder({
+          username: sessionStorage.getItem('account')
+        }).then((res) => {
+          if (res.success) {
+            this.history = res.data
+            for (let item of this.history) {
+              let paidFoods = item.foods.split(',')
+              let food = ''
+              // 利用正则表达式过滤返回json字符串中含数字的字符
+              let reg = /[0-9]+/
+              for (let str of paidFoods) {
+                if (!reg.test(str)) {
+                  str += '*1'
+                  food += str + ' '
+                }
               }
+              item.foods = food
             }
-            item.foods = food
           }
-        }
-      })
+        })
+      }
     }
   }
 }
