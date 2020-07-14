@@ -38,6 +38,9 @@ const a = {
     },
     setNum: (state, num) => {
       state.chooseNum = num
+    },
+    setFood: (state) => {
+      state.food = []
     }
   }
 }

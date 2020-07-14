@@ -1,5 +1,4 @@
 import Server from './server.js'
-
 export default {
   register (params) { // 用户注册
     return Server.post('/api/user/register', params)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class='input'>
-      <p class="text"><strong>欢迎来到我的自助点餐系统</strong></p>
+      <p class="text"><strong>欢迎来到我的在线点餐系统</strong></p>
       <div class="input-box">
         <i class="el-icon-user-solid lay"></i>
         <el-input v-model="account"

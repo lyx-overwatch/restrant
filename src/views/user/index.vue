@@ -170,12 +170,14 @@ export default {
       setFoodDetailUrl: 'setUrl',
       setFoodDetailName: 'setName',
       setFoodDetailPrices: 'setPrices',
-      setNum: 'setNum'
+      setNum: 'setNum',
+      setFood: 'setFood'
     }),
     back () {
       this.$router.push('/')
       this.handleList()
       this.setNum(0)
+      this.setFood()
     },
     foodSearch () { // 菜品搜索,保存所有菜品
       this.$service.queryFood().then((res) => {

@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('foods', {
     type: {
       type: DataTypes.STRING(255),
@@ -30,5 +30,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'foods'
-  });
-};
+  })
+}
